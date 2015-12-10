@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿// OnionRing
+// Copyright (c) 2015 kyubuns ( http://kyubuns.net/ )
+// Licensed under the MIT License.
+
+using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.Generic;
