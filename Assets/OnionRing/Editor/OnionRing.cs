@@ -1,8 +1,4 @@
-﻿// OnionRing
-// Copyright (c) 2015 kyubuns ( http://kyubuns.net/ )
-// Licensed under the MIT License.
-
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -21,6 +17,8 @@ namespace OnionRing
 		private int width;
 		private int height;
 		private int[] pixels;
+		private readonly int safetyMargin = 2;
+		private readonly int margin = 2;
 		
 		private TextureSlicer(Texture2D texture)
 		{
@@ -60,7 +58,13 @@ namespace OnionRing
 				start = tmpStart;
 				end = tmpEnd;
 			}
-			end -= 1; // 1px分は使うので残しておく
+			
+			end -= (safetyMargin*2 + margin);
+			if(end < start)
+			{
+				start = 0;
+				end = 0;
+			}
 		}
 		
 		private static List<ulong> CreateHashList(int aMax, int bMax, Func<int, int, int> f)
@@ -88,12 +92,11 @@ namespace OnionRing
 				var hashList = CreateHashList(height, width, (y, x) => { return Get(x, y); });
 				CalcLine(hashList, out yStart, out yEnd);
 			}
-			
 			var output = GenerateSlicedTexture(xStart, xEnd, yStart, yEnd);
-			int left = xStart + 1;
-			int bottom = yStart + 1;
-			int right = width-xEnd - 1;
-			int top = height-yEnd - 1;
+			int left = xStart + safetyMargin;
+			int bottom = yStart + safetyMargin;
+			int right = width-xEnd - safetyMargin - margin;
+			int top = height-yEnd - safetyMargin - margin;
 			if(xEnd - xStart < 4)
 			{
 				left = 0;
