@@ -92,17 +92,33 @@ namespace OnionRing
 				var hashList = CreateHashList(height, width, (y, x) => { return Get(x, y); });
 				CalcLine(hashList, out yStart, out yEnd);
 			}
+			
+			bool skipX = false;
+			if(xEnd - xStart < 4)
+			{
+				skipX = true;
+				xStart = 0;
+				xEnd = 0;
+			}
+			
+			bool skipY = false;
+			if(yEnd - yStart < 4)
+			{
+				skipY = true;
+				yStart = 0;
+				yEnd = 0;
+			}
 			var output = GenerateSlicedTexture(xStart, xEnd, yStart, yEnd);
 			int left = xStart + safetyMargin;
 			int bottom = yStart + safetyMargin;
 			int right = width-xEnd - safetyMargin - margin;
 			int top = height-yEnd - safetyMargin - margin;
-			if(xEnd - xStart < 4)
+			if(skipX)
 			{
 				left = 0;
 				right = 0;
 			}
-			if(yEnd - yStart < 4)
+			if(skipY)
 			{
 				top = 0;
 				bottom = 0;
