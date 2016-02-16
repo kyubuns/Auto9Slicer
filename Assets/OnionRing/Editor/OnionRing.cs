@@ -94,7 +94,7 @@ namespace OnionRing
 			}
 			
 			bool skipX = false;
-			if(xEnd - xStart < 4)
+			if(xEnd - xStart < 2)
 			{
 				skipX = true;
 				xStart = 0;
@@ -102,7 +102,7 @@ namespace OnionRing
 			}
 			
 			bool skipY = false;
-			if(yEnd - yStart < 4)
+			if(yEnd - yStart < 2)
 			{
 				skipY = true;
 				yStart = 0;
