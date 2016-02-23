@@ -73,7 +73,7 @@ namespace OnionRing
 			for(int a=0;a<aMax;++a)
 			{
 				ulong line = 0;
-				for(int b=0;b<bMax;++b) line = line + (ulong)(f(a, b) * b);
+				for(int b=0;b<bMax;++b) line = (ulong)(line + (ulong)(f(a, b) * b)).GetHashCode();
 				hashList.Add(line);
 			}
 			return hashList;
