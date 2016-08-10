@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace OnionRing
 {
@@ -9,33 +6,34 @@ namespace OnionRing
 	{
 		public static SlicedTexture Slice(Texture2D texture)
 		{
-			var slicer = new TextureSlicer(texture);
-			return slicer.Slice();
+			var pixels = texture.GetPixels();
+			var slicer = new TextureSlicer(texture, pixels);
+			return slicer.Slice(pixels);
 		}
-		
-		private Texture2D texture;
+
 		private int width;
 		private int height;
 		private int[] pixels;
 		private readonly int safetyMargin = 2;
 		private readonly int margin = 2;
-		
-		private TextureSlicer(Texture2D texture)
+
+		private TextureSlicer(Texture2D refTexture, Color[] getPixels)
 		{
-			this.texture = texture;
-			this.width = texture.width;
-			this.height = texture.height;
-			this.pixels = texture.GetPixels().Select((color) => { return color.a > 0 ? color.GetHashCode() : 0; }).ToArray();
+			this.width = refTexture.width;
+			this.height = refTexture.height;
+
+			this.pixels = new int[getPixels.Length];
+			for (int i = 0; i < getPixels.Length; ++i) this.pixels[i] = getPixels[i].a > 0 ? getPixels[i].GetHashCode() : 0;
 		}
 		
-		private void CalcLine(List<ulong> list, out int start, out int end)
+		private void CalcLine(ulong[] list, out int start, out int end)
 		{
 			start = 0;
 			end = 0;
 			int tmpStart = 0;
 			int tmpEnd = 0;
 			ulong tmpHash = list[0];
-			for(int i=0;i<list.Count;++i)
+			for(int i=0;i<list.Length;++i)
 			{
 				if(tmpHash == list[i])
 				{
@@ -66,30 +64,42 @@ namespace OnionRing
 				end = 0;
 			}
 		}
-		
-		private static List<ulong> CreateHashList(int aMax, int bMax, Func<int, int, int> f)
+
+		private ulong[] CreateHashListX(int aMax, int bMax)
 		{
-			var hashList = new List<ulong>();
-			for(int a=0;a<aMax;++a)
+			var hashList = new ulong[aMax];
+			for (int a = 0; a < aMax; ++a)
 			{
 				ulong line = 0;
-				for(int b=0;b<bMax;++b) line = (ulong)(line + (ulong)(f(a, b) * b)).GetHashCode();
-				hashList.Add(line);
+				for (int b = 0; b < bMax; ++b) line = (ulong)(line + (ulong)(pixels[b * width + a] * b)).GetHashCode();
+				hashList[a] = line;
+			}
+			return hashList;
+		}
+
+		private ulong[] CreateHashListY(int aMax, int bMax)
+		{
+			var hashList = new ulong[aMax];
+			for (int a = 0; a < aMax; ++a)
+			{
+				ulong line = 0;
+				for (int b = 0; b < bMax; ++b) line = (ulong)(line + (ulong)(pixels[a * width + b] * b)).GetHashCode();
+				hashList[a] = line;
 			}
 			return hashList;
 		}
 		
-		private SlicedTexture Slice()
+		private SlicedTexture Slice(Color[] originalPixels)
 		{
 			int xStart, xEnd;
 			{
-				var hashList = CreateHashList(width, height, (x, y) => { return Get(x, y); });
+				var hashList = CreateHashListX(width, height);
 				CalcLine(hashList, out xStart, out xEnd);
 			}
 			
 			int yStart, yEnd;
 			{
-				var hashList = CreateHashList(height, width, (y, x) => { return Get(x, y); });
+				var hashList = CreateHashListY(height, width);
 				CalcLine(hashList, out yStart, out yEnd);
 			}
 			
@@ -108,7 +118,7 @@ namespace OnionRing
 				yStart = 0;
 				yEnd = 0;
 			}
-			var output = GenerateSlicedTexture(xStart, xEnd, yStart, yEnd);
+			var output = GenerateSlicedTexture(xStart, xEnd, yStart, yEnd, originalPixels);
 			int left = xStart + safetyMargin;
 			int bottom = yStart + safetyMargin;
 			int right = width-xEnd - safetyMargin - margin;
@@ -126,16 +136,15 @@ namespace OnionRing
 			return new SlicedTexture(output, new Boarder(left, bottom, right, top));
 		}
 		
-		private Texture2D GenerateSlicedTexture(int xStart, int xEnd, int yStart, int yEnd)
+		private Texture2D GenerateSlicedTexture(int xStart, int xEnd, int yStart, int yEnd, Color[] originalPixels)
 		{
 			var outputWidth = width - (xEnd - xStart);
 			var outputHeight = height - (yEnd - yStart);
-			var originalPixels = texture.GetPixels();
 			var outputPixels = new Color[outputWidth * outputHeight];
-			for(int x=0, originalX=0;x<outputWidth;++x,++originalX)
+			for(int x=0, originalX=0; x<outputWidth; ++x, ++originalX)
 			{
 				if(originalX == xStart) originalX += (xEnd - xStart);
-				for(int y=0, originalY=0;y<outputHeight;++y,++originalY)
+				for(int y=0, originalY=0; y<outputHeight; ++y, ++originalY)
 				{
 					if(originalY == yStart) originalY += (yEnd - yStart);
 					outputPixels[y * outputWidth + x] = originalPixels[originalY * width + originalX];
