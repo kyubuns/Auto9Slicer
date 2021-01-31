@@ -128,7 +128,7 @@ namespace Auto9Slicer
 				start += _options.Margin;
 				end -= _options.Margin;
 
-				if (end < start)
+				if (end <= start)
 				{
 					start = 0;
 					end = 0;
