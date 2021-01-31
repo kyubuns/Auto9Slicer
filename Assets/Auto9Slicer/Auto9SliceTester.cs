@@ -12,6 +12,9 @@ namespace Auto9Slicer
         public SliceOptions Options => options;
         [SerializeField] private SliceOptions options = new SliceOptions();
 
+        public bool CreateBackup => createBackup;
+        [SerializeField] private bool createBackup = true;
+
         public void Run()
         {
             var directoryPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
@@ -21,6 +24,7 @@ namespace Auto9Slicer
             var targets = Directory.GetFiles(fullDirectoryPath)
                 .Select(Path.GetFileName)
                 .Where(x => x.EndsWith(".png") || x.EndsWith(".jpg") || x.EndsWith(".jpeg"))
+                .Where(x => !x.Contains(".original"))
                 .Select(x => Path.Combine(directoryPath, x))
                 .Select(x => (Path: x, Texture: AssetDatabase.LoadAssetAtPath<Texture2D>(x)))
                 .Where(x => x.Item2 != null)
@@ -32,12 +36,19 @@ namespace Auto9Slicer
                 if (importer is TextureImporter textureImporter)
                 {
                     if (textureImporter.spriteBorder != Vector4.zero) continue;
-
                     var fullPath = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? "", target.Path);
+                    var bytes = File.ReadAllBytes(fullPath);
+
+                    // バックアップ
+                    if (CreateBackup)
+                    {
+                        var fileName = Path.GetFileNameWithoutExtension(fullPath);
+                        File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(fullPath) ?? "", fileName + ".original" + Path.GetExtension(fullPath)), bytes);
+                    }
 
                     // importerのreadable設定に依らずに読み込むために直接読む
                     var targetTexture = new Texture2D(2, 2);
-                    targetTexture.LoadImage(File.ReadAllBytes(fullPath));
+                    targetTexture.LoadImage(bytes);
 
                     var slicedTexture = Slicer.Slice(targetTexture, Options);
                     textureImporter.textureType = TextureImporterType.Sprite;
