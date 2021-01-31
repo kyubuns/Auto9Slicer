@@ -6,6 +6,10 @@ Auto 9 slice sprite generator on Unity.
 
 ![output](https://user-images.githubusercontent.com/961165/106372768-5c612480-63b6-11eb-9ff8-04394f6bb70b.gif)
 
+## Instructions
+
+Package Manager `https://github.com/kyubuns/Auto9Slicer.git?path=Assets/Auto9Slicer`
+
 ## Simple Use
 
 Create Auto9SliceTester. Assets > Create > Auto 9Slice > Tester
