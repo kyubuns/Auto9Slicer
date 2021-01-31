@@ -16,3 +16,4 @@ MonoBehaviour:
     Tolerate: 0
     CenterSize: 2
     Margin: 2
+  createBackup: 1
