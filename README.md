@@ -8,7 +8,8 @@ Auto 9 slice sprite generator on Unity.
 
 ## Instructions
 
-Package Manager `https://github.com/kyubuns/Auto9Slicer.git?path=Assets/Auto9Slicer`
+- Package Manager `https://github.com/kyubuns/Auto9Slicer.git?path=Assets/Auto9Slicer`
+- [UnityPackage](https://github.com/kyubuns/Auto9Slicer/releases)
 
 ## Simple Use
 
