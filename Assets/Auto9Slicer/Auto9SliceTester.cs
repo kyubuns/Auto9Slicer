@@ -34,7 +34,6 @@ namespace Auto9Slicer
                     if (textureImporter.spriteBorder != Vector4.zero) continue;
 
                     var fullPath = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? "", target.Path);
-                    Debug.Log($"Auto 9Slice {Path.GetFileName(target.Path)}");
 
                     // importerのreadable設定に依らずに読み込むために直接読む
                     var targetTexture = new Texture2D(2, 2);
@@ -46,6 +45,8 @@ namespace Auto9Slicer
                     if (fullPath.EndsWith(".png")) File.WriteAllBytes(fullPath, slicedTexture.Texture.EncodeToPNG());
                     if (fullPath.EndsWith(".jpg")) File.WriteAllBytes(fullPath, slicedTexture.Texture.EncodeToJPG());
                     if (fullPath.EndsWith(".jpeg")) File.WriteAllBytes(fullPath, slicedTexture.Texture.EncodeToJPG());
+
+                    Debug.Log($"Auto 9Slice {Path.GetFileName(target.Path)} = {textureImporter.spriteBorder}");
                 }
             }
 

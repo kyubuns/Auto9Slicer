@@ -43,8 +43,8 @@ namespace Auto9Slicer
 
 				var left = xStart;
 				var bottom = yStart;
-				var right = (_width - xEnd);
-				var top = (_height - yEnd);
+				var right = (_width - xEnd) - 1;
+				var top = (_height - yEnd) - 1;
 
 				if (skipX)
 				{
@@ -139,15 +139,15 @@ namespace Auto9Slicer
 
 			private Texture2D GenerateSlicedTexture(int xStart, int xEnd, int yStart, int yEnd, bool skipX, bool skipY)
 			{
-				var outputWidth = _width - (xEnd - xStart) + (skipX ? 0 : _options.CenterSize);
-				var outputHeight = _height - (yEnd - yStart) + (skipY ? 0 : _options.CenterSize);
+				var outputWidth = _width - (xEnd - xStart) + (skipX ? 0 : _options.CenterSize - 1);
+				var outputHeight = _height - (yEnd - yStart) + (skipY ? 0 : _options.CenterSize - 1);
 				var outputPixels = new Color[outputWidth * outputHeight];
 				for (int x = 0, originalX = 0; x < outputWidth; ++x, ++originalX)
 				{
-					if (originalX == xStart && !skipX) originalX += (xEnd - xStart) - _options.CenterSize;
+					if (originalX == xStart && !skipX) originalX += (xEnd - xStart) - _options.CenterSize + 1;
 					for (int y = 0, originalY = 0; y < outputHeight; ++y, ++originalY)
 					{
-						if (originalY == yStart && !skipY) originalY += (yEnd - yStart) - _options.CenterSize;
+						if (originalY == yStart && !skipY) originalY += (yEnd - yStart) - _options.CenterSize + 1;
 						outputPixels[y * outputWidth + x] = Get(originalX, originalY);
 					}
 				}
