@@ -39,6 +39,12 @@ File.WriteAllBytes(filePath, slicedTexture.Texture.EncodeToPNG());
 
 MIT License (see [LICENSE](LICENSE))
 
+## Buy me a coffee
+
+Are you enjoying save time?  
+Buy me a coffee if you love my code!  
+https://www.buymeacoffee.com/kyubuns
+
 ## "I used it for this game!"
 
 I'd be happy to receive reports like "I used it for this game!"  
