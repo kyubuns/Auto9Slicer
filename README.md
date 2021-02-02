@@ -38,3 +38,9 @@ File.WriteAllBytes(filePath, slicedTexture.Texture.EncodeToPNG());
 ## License
 
 MIT License (see [LICENSE](LICENSE))
+
+## "I used it for this game!"
+
+I'd love it if you'd tell me!  
+Please email or twitter!  
+https://kyubuns.dev/

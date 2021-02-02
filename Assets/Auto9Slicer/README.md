@@ -2,11 +2,19 @@
 
 ## How to use
 
-Please see github page.
+Please see github page.  
 https://github.com/kyubuns/Auto9Slicer/blob/main/README.md
 
 ## Buy me a coffee
 
-Did you save time?
-Please buy me a coffee if you like.
+Are you enjoying save time?  
+Buy me a coffee if you love my code!  
 https://www.buymeacoffee.com/kyubuns
+
+## "I used it for this game!"
+
+I'd love it if you'd tell me!
+Please email or twitter!
+
+kyubuns@gmail.com
+https://kyubuns.dev/
