@@ -41,6 +41,8 @@ MIT License (see [LICENSE](LICENSE))
 
 ## "I used it for this game!"
 
-I'd love it if you'd tell me!  
-Please email or twitter!  
+I'd be happy to receive reports like "I used it for this game!"  
+Please contact me by email, twitter or any other means.  
+(This library is MIT licensed, so reporting is NOT mandatory.)  
 https://kyubuns.dev/
+
