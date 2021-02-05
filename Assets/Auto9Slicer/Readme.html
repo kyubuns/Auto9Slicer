@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auto 9Slicer Readme</title>
+    <link rel="stylesheet" href="ReadmeAssets/new.css">
+  </head>
+  <body>
+    <h1>Auto 9Slicer Readme</h1>
+    <p>Auto 9 slice sprite generator on Unity.</p>
+    <p><img src="ReadmeAssets/summary.gif" alt="image" width="800" height="auto"></p>
+
+    <h2>Simple Use</h2>
+    <p>Create Auto9SliceTester. Assets > Create > Auto 9Slice > Tester</p>
+    <p><img src="ReadmeAssets/simple1.png" alt="image" width="600" height="auto"></p>
+    <p>Click `Run` to automatically slice the images in the same directory.</p>
+    <p><img src="ReadmeAssets/simple2.png" alt="image" width="600" height="auto"></p>
+
+    <h2>From Script</h2>
+    <p>Add it to your EditorScript so that it will be executed at your desired timing.</p>
+    <p>var slicedTexture = Auto9Slicer.Slicer.Slice(texture, SliceOptions.Default);<br />
+textureImporter.spriteBorder = slicedTexture.Border.ToVector4();<br />
+File.WriteAllBytes(filePath, slicedTexture.Texture.EncodeToPNG());</p>
+
+    <h2>Buy me a coffee</h2>
+    <p>
+      Are you enjoying save time?<br />
+      Buy me a coffee if you love my code!<br />
+      <a href="https://www.buymeacoffee.com/kyubuns" rel="noopener noreferrer" target="_blank">https://www.buymeacoffee.com/kyubuns</a>
+    </p>
+
+    <h2>"I used it for this game!"</h2>
+    <p>
+      I'd be happy to receive reports like "I used it for this game!"<br />
+      Please contact me by email, twitter or any other means.<br />
+      (reporting is NOT mandatory.)<br />
+      <a href="https://kyubuns.dev/" rel="noopener noreferrer" target="_blank">https://kyubuns.dev/</a>
+    </p>
+  </body>
+</html>

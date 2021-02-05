@@ -12,7 +12,6 @@ namespace Development
         {
             Debug.Log("Start");
             AssetDatabase.DeleteAsset("Assets/Auto9Slicer/LICENSE.md");
-            AssetDatabase.DeleteAsset("Assets/Auto9Slicer/README.md");
             AssetDatabase.DeleteAsset("Assets/Auto9Slicer/package.json");
             Debug.Log("Finish");
         }
