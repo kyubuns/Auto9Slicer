@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace Development
@@ -13,6 +14,12 @@ namespace Development
             Debug.Log("Start");
             AssetDatabase.DeleteAsset("Assets/Auto9Slicer/LICENSE.md");
             AssetDatabase.DeleteAsset("Assets/Auto9Slicer/package.json");
+
+            var basePath = Path.Combine(Application.dataPath, "Auto9Slicer");
+            Directory.Move(Path.Combine(basePath, "Samples~/Demo"), Path.Combine(basePath, "Demo"));
+            File.Move(Path.Combine(basePath, "Samples~/Demo.meta"), Path.Combine(basePath, "Demo.meta"));
+
+            AssetDatabase.Refresh(ImportAssetOptions.Default);
             Debug.Log("Finish");
         }
     }
