@@ -1,5 +1,5 @@
 {
-    "name": "Auto9Slicer",
+    "name": "Auto9Slicer.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"
