@@ -1,8 +1,5 @@
 # Auto9Slicer
-Auto 9 slice sprite generator on Unity.  
-(The library used to be called [`OnionRing`](https://github.com/kyubuns/Auto9Slicer/tree/onionring))
-
-<a href="https://www.buymeacoffee.com/kyubuns" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+Auto 9 slice sprite generator on Unity.
 
 ![output](https://user-images.githubusercontent.com/961165/106372768-5c612480-63b6-11eb-9ff8-04394f6bb70b.gif)
 
@@ -39,17 +36,3 @@ File.WriteAllBytes(filePath, slicedTexture.Texture.EncodeToPNG());
 ## License
 
 MIT License (see [LICENSE](LICENSE))
-
-## Buy me a coffee
-
-Are you enjoying save time?  
-Buy me a coffee if you love my code!  
-https://www.buymeacoffee.com/kyubuns
-
-## "I used it for this game!"
-
-I'd be happy to receive reports like "I used it for this game!"  
-Please contact me by email, twitter or any other means.  
-(This library is MIT licensed, so reporting is NOT mandatory.)  
-https://kyubuns.dev/
-
